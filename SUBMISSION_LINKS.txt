@@ -1,0 +1,10 @@
+Student: Fatima Zahrae
+GitHub repository: https://github.com/12005-f/tcp-chat-project-fatima-zahrae
+Three-minute demo: ADD YOUR REAL VIDEO URL, OR STATE THAT THE VIDEO FILE IS ATTACHED
+
+Required artifacts in this folder:
+- TCPServer/ and TCPClient/: complete Maven source projects
+- dist/TCPServer.jar and dist/TCPClient.jar: Windows x64 executables (Java 21+ required)
+- docs/Class_Diagram.png and docs/Deployment_Diagram.png
+- README.md
+

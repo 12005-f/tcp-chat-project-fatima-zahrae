@@ -1,0 +1,99 @@
+@startuml
+!pragma layout smetana
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide empty members
+title Mini Project 1 - Class Diagram
+package "TCPServer Maven project" {
+ class "TCPServer (short launcher)" as SL
+ class "chat.server.TCPServer" as SE
+ class ChatServerApp <<JavaFX view>> {
+  +start(stage)
+  -startServer()
+  +stop()
+ }
+ interface ServerListener {
+  +onLog(message)
+  +onUsersChanged(users)
+ }
+ class ChatServer <<model>> {
+  -clients: List<ClientHandler>
+  -executor: ExecutorService
+  +start()
+  +stop()
+  -acceptLoop()
+  ~tryRegister(handler)
+  ~broadcastChat(sender, text)
+  ~unregister(handler)
+ }
+ class ClientHandler <<model>> {
+  -socket: Socket
+  -out: PrintWriter
+  -username: String
+  -readOnly: boolean
+  +run()
+  -handle(line)
+  ~send(line)
+  ~close()
+ }
+ class ServerConfig <<record>> {
+  +host: String
+  +port: int
+  +load(): ServerConfig
+ }
+ SL ..> SE : delegates
+ SE ..> ChatServerApp : launches
+ ChatServerApp --> ChatServer : owns
+ ChatServerApp ..> ServerListener : creates anonymous listener
+ ChatServerApp ..> ServerConfig : loads settings
+ ChatServer --> ServerListener : notifies
+ ChatServer --> ServerConfig : reads endpoint
+ ChatServer "1" *-- "0..*" ClientHandler : manages
+}
+package "TCPClient Maven project" {
+ class "TCPClient (short launcher)" as CL
+ class "chat.client.TCPClient" as CE
+ class ChatClientApp <<JavaFX view>> {
+  +start(stage)
+  -connect()
+  -submit()
+  -leaveChat()
+ }
+ interface ChatListener {
+  +onJoined(username, readOnly)
+  +onRejected(reason)
+  +onChat(time, sender, text)
+  +onInfo(text)
+  +onUsers(users)
+  +onError(text)
+  +onDisconnected()
+ }
+ class ChatConnection <<model>> {
+  -socket: Socket
+  -out: PrintWriter
+  +connectAsync(username)
+  +sendMessage(text)
+  +requestUsers()
+  +leave()
+  -dispatch(line)
+ }
+ class ClientConfig <<record>> {
+  +host: String
+  +port: int
+  +load(args): ClientConfig
+ }
+ CL ..> CE : delegates
+ CE ..> ChatClientApp : launches
+ ChatClientApp ..|> ChatListener
+ ChatClientApp --> ChatConnection : owns
+ ChatClientApp ..> ClientConfig : loads settings
+ ChatConnection --> ClientConfig : reads endpoint
+ ChatConnection --> ChatListener : notifies
+}
+ClientHandler .. ChatConnection : TCP / UTF-8 text lines
+note bottom of ChatConnection
+ Models have no JavaFX dependencies.
+ Views use Platform.runLater for UI callbacks.
+end note
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+!pragma layout smetana
+skinparam backgroundColor white
+skinparam shadowing false
+title Mini Project 1 - Deployment Diagram
+node "Client computer A\nJava 21+" as A {
+ artifact "TCPClient.jar\nJavaFX + ChatConnection" as CA
+ artifact "client.properties" as PA
+ CA ..> PA : loads
+}
+node "Server computer\nJava 21+\nExample LAN IP: 192.168.1.10" as S {
+ artifact "TCPServer.jar\nJavaFX + ChatServer\nvirtual client handlers" as SR
+ artifact "server.properties\nserver.host=0.0.0.0\nserver.port=3000" as PS
+ SR ..> PS : loads
+}
+node "Client computer B\nJava 21+" as B {
+ artifact "TCPClient.jar\nJavaFX + ChatConnection" as CB
+ artifact "client.properties" as PB
+ CB ..> PB : loads
+}
+A -- S : TCP/IP : port 3000
+B -- S : TCP/IP : port 3000
+note bottom of S
+ Local demo: run all processes on one computer;
+ clients connect to localhost:3000.
+ LAN demo: clients use the actual server LAN IP.
+ The JARs contain platform-specific JavaFX libraries.
+end note
+@enduml
