@@ -1,0 +1,21 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #f4f6fa;
+}
+.section-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+.log-area {
+    -fx-font-family: "Consolas", "Monospaced";
+}
+.list-view {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+.list-cell {
+    -fx-padding: 8 10 8 10;
+    -fx-font-weight: bold;
+}

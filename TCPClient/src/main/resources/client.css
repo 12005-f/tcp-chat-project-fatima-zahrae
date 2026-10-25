@@ -1,0 +1,28 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #f4f6fa;
+}
+.title      { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; }
+.hint       { -fx-text-fill: #7f8c8d; }
+.error      { -fx-text-fill: #c0392b; }
+
+.status-dot { -fx-fill: #2ecc71; }
+.online     { -fx-text-fill: #27ae60; -fx-font-weight: bold; }
+.mode       { -fx-text-fill: #34495e; }
+.mode.readonly { -fx-text-fill: #e67e22; -fx-font-weight: bold; }
+
+.messages   { -fx-font-family: "Consolas", "Monospaced"; }
+
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+.button:hover    { -fx-background-color: #2980b9; }
+.button:disabled { -fx-opacity: 0.45; }
+.button.leave    { -fx-background-color: #e74c3c; }
+.button.leave:hover { -fx-background-color: #c0392b; }
